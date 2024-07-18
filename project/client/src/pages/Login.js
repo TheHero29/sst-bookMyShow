@@ -1,24 +1,24 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from "react";
 import { Button, Form, Input, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
-import { LoginUser } from '../calls/users';
+import { LoginUser } from "../calls/users";
 
 function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(localStorage.getItem('token')){
-        navigate("/");
+    if (localStorage.getItem("token")) {
+      navigate("/");
     }
-  }, [navigate]); 
+  }, [navigate]);
 
   const onFinish = async (values) => {
     try {
       const response = await LoginUser(values);
       if (response.success) {
         message.success(response.message);
-        localStorage.setItem('token', response.token);
-        navigate('/');
+        localStorage.setItem("token", response.token);
+        navigate("/");
       } else {
         message.error(response.message);
       }
@@ -54,11 +54,20 @@ function Login() {
                 className="d-block"
                 rules={[{ required: true, message: "Password is required" }]}
               >
-                <Input id="password" type="password" placeholder="Enter your Password" />
+                <Input
+                  id="password"
+                  type="password"
+                  placeholder="Enter your Password"
+                />
               </Form.Item>
 
               <Form.Item className="d-block">
-                <Button type="primary" block htmlType="submit" style={{ fontSize: "1rem", fontWeight: "600" }}>
+                <Button
+                  type="primary"
+                  block
+                  htmlType="submit"
+                  style={{ fontSize: "1rem", fontWeight: "600" }}
+                >
                   Login
                 </Button>
               </Form.Item>
